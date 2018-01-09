@@ -30,14 +30,18 @@ using System.Xml;
 
 namespace MonoDevelop.Projects.MSBuild.Conditions {
 	internal abstract class ConditionExpression {
-	
+
+		static readonly Version EmptyVersion = new Version ();
+
 		public abstract bool BoolEvaluate (IExpressionContext context);
 		public abstract float NumberEvaluate (IExpressionContext context);
 		public abstract string StringEvaluate (IExpressionContext context);
+		public virtual Version VersionEvaluate (IExpressionContext context) => EmptyVersion;
 		
 		public abstract bool CanEvaluateToBool (IExpressionContext context);
 		public abstract bool CanEvaluateToNumber (IExpressionContext context);
 		public abstract bool CanEvaluateToString (IExpressionContext context);
+		public virtual bool CanEvaluateToVersion (IExpressionContext context) => false;
 
 		public virtual void CollectConditionProperties (ConditionedPropertyCollection properties)
 		{
